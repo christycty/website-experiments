@@ -296,6 +296,105 @@ body {
     margin-top: 0.5rem;
 }
 
+/* ===== Share Section ===== */
+.share-section {
+    margin: 2rem 0;
+    padding: 2rem 0;
+    border-top: 2px solid rgba(212, 175, 55, 0.3);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+}
+
+.share-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.5rem;
+    color: var(--shrine-red);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1rem;
+}
+
+.share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px var(--shadow-color);
+    font-family: 'Crimson Text', serif;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.share-btn svg {
+    flex-shrink: 0;
+}
+
+.download-btn {
+    background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+}
+
+.download-btn:hover {
+    background: linear-gradient(135deg, #5BA3F5 0%, #4A90E2 100%);
+}
+
+.instagram-btn {
+    background: linear-gradient(135deg, #E4405F 0%, #C13584 50%, #833AB4 100%);
+}
+
+.instagram-btn:hover {
+    background: linear-gradient(135deg, #F5516C 0%, #D13E92 50%, #9348C4 100%);
+}
+
+.whatsapp-btn {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.whatsapp-btn:hover {
+    background: linear-gradient(135deg, #2FE577 0%, #1AA08E 100%);
+}
+
+.twitter-btn {
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+}
+
+.twitter-btn:hover {
+    background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+}
+
+.link-btn {
+    background: linear-gradient(135deg, #666666 0%, #444444 100%);
+}
+
+.link-btn:hover {
+    background: linear-gradient(135deg, #777777 0%, #555555 100%);
+}
+
+.link-btn.copied {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+}
+
 /* ===== Reset Button ===== */
 .reset-button {
     display: block;
@@ -426,6 +525,24 @@ body {
     .reset-button {
         padding: 0.8rem 2rem;
         font-size: 1rem;
+    }
+    
+    .share-buttons {
+        gap: 0.75rem;
+    }
+    
+    .share-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .share-btn span {
+        display: none;
+    }
+    
+    .share-btn svg {
+        width: 24px;
+        height: 24px;
     }
 }
 

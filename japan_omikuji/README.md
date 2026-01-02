@@ -7,6 +7,7 @@ An interactive website simulating the traditional Japanese omikuji (fortune draw
 - **3D Interactive Experience**: Shake a realistic omikuji box using Three.js
 - **Traditional Fortune System**: Authentic Japanese fortune levels and categories
 - **Beautiful Animations**: Smooth transitions from shaking to fortune reveal
+- **Share Your Fortune**: Download as image or share on social media
 - **Mobile Responsive**: Full touch support for mobile devices
 - **Accessibility**: Keyboard navigation and screen reader support
 - **No Build Required**: Pure HTML/CSS/JS with CDN libraries
@@ -16,7 +17,11 @@ An interactive website simulating the traditional Japanese omikuji (fortune draw
 1. **Shake the Box**: Click and drag on the omikuji box to shake it
 2. **Watch the Stick Emerge**: After enough shaking, a fortune stick will slide out
 3. **Unfold Your Fortune**: Click to unfold the paper and reveal your fortune
-4. **Draw Again**: Click the button to draw another fortune
+4. **Share Your Fortune**: Use the share buttons to:
+   - Download your fortune as an image
+   - Share on Instagram, WhatsApp, or X (Twitter)
+   - Copy a link to share with friends
+5. **Draw Again**: Click the button to draw another fortune
 
 ## Fortune Levels
 
@@ -47,6 +52,7 @@ Each fortune includes guidance for:
 ## Technologies Used
 
 - **Three.js** (r128) - 3D graphics and animations
+- **html2canvas** (1.4.1) - Fortune image generation
 - **Google Fonts** - Noto Serif JP and Crimson Text
 - **Vanilla JavaScript** - No frameworks required
 - **CSS3** - Modern animations and responsive design
@@ -61,14 +67,15 @@ Each fortune includes guidance for:
 ## File Structure
 
 ```
-new_year_greetings/
+japan_omikuji/
 ├── index.html          # Main HTML structure
 ├── css/
 │   └── style.css      # Traditional Japanese styling
 ├── js/
 │   ├── main.js        # Application state machine
 │   ├── animation.js   # 3D animation controller
-│   └── fortunes.js    # Fortune data and logic
+│   ├── fortunes.js    # Fortune data and logic
+│   └── share.js       # Share functionality
 └── assets/
     ├── textures/      # (Optional) Additional textures
     └── sounds/        # (Optional) Sound effects
