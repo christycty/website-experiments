@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Japanese Omikuji - Draw your fortune in a traditional shrine experience">
+    <meta name="keywords" content="omikuji, fortune, Japanese, shrine, New Year">
+    <title>おみくじ - Omikuji Fortune Drawing</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Background Elements -->
+    <div id="background">
+        <div class="torii-gate"></div>
+        <div class="sakura-container" id="sakuraContainer"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main id="app" role="main">
+        <!-- Title Section -->
+        <header class="title-section" id="titleSection">
+            <h1 class="main-title">
+                <span class="japanese-title">おみくじ</span>
+                <span class="english-title">Omikuji</span>
+            </h1>
+            <p class="subtitle">Draw your fortune from the sacred box</p>
+        </header>
+
+        <!-- 3D Canvas Container -->
+        <section class="canvas-container" id="canvasContainer" aria-label="Interactive omikuji box">
+            <canvas id="omikujiCanvas"></canvas>
+        </section>
+
+        <!-- Instruction Text -->
+        <div class="instruction-text" id="instructionText" aria-live="polite">
+            <p>Click and drag to shake the box</p>
+        </div>
+
+        <!-- Fortune Display -->
+        <section class="fortune-display hidden" id="fortuneDisplay" aria-live="polite">
+            <div class="fortune-paper">
+                <div class="fortune-header">
+                    <h2 class="fortune-level-jp" id="fortuneLevelJp"></h2>
+                    <p class="fortune-level-en" id="fortuneLevelEn"></p>
+                </div>
+                <div class="fortune-content">
+                    <div class="fortune-category" id="fortuneWishes">
+                        <h3>願事 <span class="category-en">Wishes</span></h3>
+                        <p class="fortune-text" id="wishesText"></p>
+                    </div>
+                    <div class="fortune-category" id="fortuneLove">
+                        <h3>恋愛 <span class="category-en">Love</span></h3>
+                        <p class="fortune-text" id="loveText"></p>
+                    </div>
+                    <div class="fortune-category" id="fortuneHealth">
+                        <h3>健康 <span class="category-en">Health</span></h3>
+                        <p class="fortune-text" id="healthText"></p>
+                    </div>
+                    <div class="fortune-category" id="fortuneBusiness">
+                        <h3>仕事 <span class="category-en">Business</span></h3>
+                        <p class="fortune-text" id="businessText"></p>
+                    </div>
+                    <div class="fortune-category" id="fortuneStudies">
+                        <h3>学問 <span class="category-en">Studies</span></h3>
+                        <p class="fortune-text" id="studiesText"></p>
+                    </div>
+                    <div class="fortune-category" id="fortuneTravel">
+                        <h3>旅行 <span class="category-en">Travel</span></h3>
+                        <p class="fortune-text" id="travelText"></p>
+                    </div>
+                </div>
+                <button class="reset-button" id="resetButton" aria-label="Draw another fortune">
+                    Draw Another Fortune
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div class="loading-indicator hidden" id="loadingIndicator" aria-live="polite">
+            <div class="spinner"></div>
+            <p>Preparing your fortune...</p>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/fortunes.js"></script>
+    <script src="js/animation.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

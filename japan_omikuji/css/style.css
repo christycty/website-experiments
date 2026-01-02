@@ -1,0 +1,482 @@
+/**
+ * Traditional Japanese Omikuji Styling
+ * Shrine-inspired aesthetic with modern interactivity
+ */
+
+/* ===== CSS Variables ===== */
+:root {
+    --shrine-red: #CC0000;
+    --sacred-white: #FFFAF0;
+    --gold-accent: #D4AF37;
+    --wood-brown: #8B4513;
+    --dark-wood: #654321;
+    --paper-beige: #F5F5DC;
+    --text-dark: #2C1810;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Global Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background: linear-gradient(135deg, #F5F5DC 0%, #E8DCC4 50%, #F5F5DC 100%);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ===== Background Elements ===== */
+#background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.torii-gate {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300px;
+    height: 200px;
+    opacity: 0.08;
+    background-image: 
+        linear-gradient(to bottom, var(--shrine-red) 0%, var(--shrine-red) 15%, transparent 15%, transparent 20%, var(--shrine-red) 20%, var(--shrine-red) 25%, transparent 25%),
+        linear-gradient(to right, var(--shrine-red) 0%, var(--shrine-red) 15%, transparent 15%, transparent 85%, var(--shrine-red) 85%, var(--shrine-red) 100%);
+}
+
+.sakura-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Sakura petals - created dynamically via JS */
+.sakura-petal {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #FFB7C5 0%, #FFC0CB 50%, transparent 100%);
+    border-radius: 50% 0 50% 0;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== Main Container ===== */
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+}
+
+/* ===== Title Section ===== */
+.title-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.main-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.japanese-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--shrine-red);
+    text-shadow: 2px 2px 4px var(--shadow-color);
+    letter-spacing: 0.5rem;
+}
+
+.english-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-wood);
+    letter-spacing: 0.3rem;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--wood-brown);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* ===== Canvas Container ===== */
+.canvas-container {
+    width: 100%;
+    max-width: 600px;
+    height: 500px;
+    position: relative;
+    margin: 2rem 0;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    background: linear-gradient(135deg, rgba(255, 250, 240, 0.5) 0%, rgba(245, 245, 220, 0.5) 100%);
+    overflow: hidden;
+}
+
+#omikujiCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    cursor: grab;
+}
+
+#omikujiCanvas:active {
+    cursor: grabbing;
+}
+
+/* ===== Instruction Text ===== */
+.instruction-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--wood-brown);
+    margin: 1rem 0;
+    animation: pulse 2s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+}
+
+.instruction-text.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+}
+
+/* ===== Fortune Display ===== */
+.fortune-display {
+    width: 100%;
+    max-width: 700px;
+    margin: 2rem auto;
+    animation: fadeInUp 0.8s ease-out;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fortune-display.hidden {
+    display: none;
+}
+
+.fortune-paper {
+    background: var(--sacred-white);
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 2px,
+            rgba(139, 69, 19, 0.03) 2px,
+            rgba(139, 69, 19, 0.03) 4px
+        );
+    border: 3px solid var(--gold-accent);
+    border-radius: 10px;
+    padding: 3rem 2rem;
+    box-shadow: 
+        0 10px 40px var(--shadow-color),
+        inset 0 0 20px rgba(212, 175, 55, 0.1);
+    position: relative;
+}
+
+.fortune-paper::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.fortune-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--gold-accent);
+}
+
+.fortune-level-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--shrine-red);
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 2px var(--shadow-color);
+    letter-spacing: 1rem;
+}
+
+.fortune-level-en {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-wood);
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.fortune-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.fortune-category {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--shrine-red);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fortune-category:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.fortune-category h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    color: var(--shrine-red);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-en {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9rem;
+    color: var(--wood-brown);
+    font-weight: 400;
+}
+
+.fortune-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin-top: 0.5rem;
+}
+
+/* ===== Reset Button ===== */
+.reset-button {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--sacred-white);
+    background: linear-gradient(135deg, var(--shrine-red) 0%, #AA0000 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+}
+
+.reset-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+    background: linear-gradient(135deg, #DD0000 0%, var(--shrine-red) 100%);
+}
+
+.reset-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px var(--shadow-color);
+}
+
+/* ===== Loading Indicator ===== */
+.loading-indicator {
+    text-align: center;
+    margin: 2rem 0;
+    transition: opacity 0.3s ease;
+}
+
+.loading-indicator.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 1rem;
+    border: 4px solid rgba(204, 0, 0, 0.1);
+    border-top: 4px solid var(--shrine-red);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-indicator p {
+    font-size: 1.1rem;
+    color: var(--wood-brown);
+    font-style: italic;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+    .japanese-title {
+        font-size: 3rem;
+        letter-spacing: 0.3rem;
+    }
+    
+    .english-title {
+        font-size: 1.2rem;
+        letter-spacing: 0.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .canvas-container {
+        height: 400px;
+        max-width: 100%;
+    }
+    
+    .fortune-paper {
+        padding: 2rem 1.5rem;
+    }
+    
+    .fortune-level-jp {
+        font-size: 2.5rem;
+        letter-spacing: 0.5rem;
+    }
+    
+    .fortune-level-en {
+        font-size: 1.2rem;
+    }
+    
+    .fortune-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .fortune-category {
+        padding: 1rem;
+    }
+    
+    .reset-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #app {
+        padding: 1rem;
+    }
+    
+    .japanese-title {
+        font-size: 2.5rem;
+    }
+    
+    .canvas-container {
+        height: 350px;
+    }
+    
+    .fortune-paper {
+        padding: 1.5rem 1rem;
+    }
+    
+    .fortune-level-jp {
+        font-size: 2rem;
+    }
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Focus styles for keyboard navigation */
+button:focus-visible,
+#omikujiCanvas:focus-visible {
+    outline: 3px solid var(--gold-accent);
+    outline-offset: 3px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .fortune-paper {
+        border-width: 4px;
+    }
+    
+    .fortune-category {
+        border-left-width: 6px;
+    }
+}
+
