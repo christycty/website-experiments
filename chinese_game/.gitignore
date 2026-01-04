@@ -1,0 +1,26 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Optional: Uncomment if you want to ignore actual asset files
+# (useful if assets are large and stored elsewhere)
+# assets/images/*.jpg
+# assets/images/*.png
+# assets/spine/*.png
+# assets/sounds/*.mp3
+

@@ -1,0 +1,8 @@
+# Placeholder for Spine animation assets
+# Add the following files:
+# - beast.json (Spine skeleton data)
+# - beast.atlas (Spine texture atlas)
+# - beast.png (Spine texture image)
+#
+# Note: The game will use a fallback sprite if Spine assets are not available
+

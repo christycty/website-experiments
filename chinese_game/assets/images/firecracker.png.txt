@@ -1,0 +1,13 @@
+PLACEHOLDER: Replace this file with an actual firecracker.png image (64x64px recommended)
+
+You can:
+1. Create your own firecracker icon
+2. Use a free icon from sites like:
+   - https://www.flaticon.com/
+   - https://icons8.com/
+   - https://www.iconfinder.com/
+
+Or create a simple SVG firecracker icon and convert it to PNG.
+
+The game will still work without this image, but the firecracker icon in the HUD won't display.
+

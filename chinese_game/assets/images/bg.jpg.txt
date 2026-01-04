@@ -1,0 +1,13 @@
+PLACEHOLDER: Replace this file with an actual bg.jpg background image (750x1334px recommended)
+
+You can:
+1. Create your own Chinese New Year themed background
+2. Use free images from sites like:
+   - https://unsplash.com/
+   - https://pexels.com/
+   - https://pixabay.com/
+
+Search for: "Chinese New Year", "red lanterns", "fireworks", "festive background"
+
+The game will use a solid color fallback if this image is not available.
+

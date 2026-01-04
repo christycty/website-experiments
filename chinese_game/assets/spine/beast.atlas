@@ -1,0 +1,49 @@
+
+beast.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 2
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 124, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+leftArm
+  rotate: false
+  xy: 226, 2
+  size: 60, 30
+  orig: 60, 30
+  offset: 0, 0
+  index: -1
+rightArm
+  rotate: false
+  xy: 288, 2
+  size: 60, 30
+  orig: 60, 30
+  offset: 0, 0
+  index: -1
+leftLeg
+  rotate: false
+  xy: 350, 2
+  size: 70, 35
+  orig: 70, 35
+  offset: 0, 0
+  index: -1
+rightLeg
+  rotate: false
+  xy: 422, 2
+  size: 70, 35
+  orig: 70, 35
+  offset: 0, 0
+  index: -1
+

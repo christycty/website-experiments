@@ -1,0 +1,164 @@
+{
+  "skeleton": {
+    "hash": "year-beast-v1",
+    "spine": "3.8.99",
+    "x": 0,
+    "y": 0,
+    "width": 400,
+    "height": 400,
+    "images": "./",
+    "audio": ""
+  },
+  "bones": [
+    { "name": "root" },
+    { "name": "body", "parent": "root", "length": 100, "x": 0, "y": 0 },
+    { "name": "head", "parent": "body", "length": 80, "x": 0, "y": 100 },
+    { "name": "leftArm", "parent": "body", "length": 60, "x": -50, "y": 80, "rotation": -45 },
+    { "name": "rightArm", "parent": "body", "length": 60, "x": 50, "y": 80, "rotation": 45 },
+    { "name": "leftLeg", "parent": "body", "length": 70, "x": -30, "y": -20, "rotation": 90 },
+    { "name": "rightLeg", "parent": "body", "length": 70, "x": 30, "y": -20, "rotation": 90 }
+  ],
+  "slots": [
+    { "name": "body", "bone": "body", "attachment": "body" },
+    { "name": "head", "bone": "head", "attachment": "head" },
+    { "name": "leftArm", "bone": "leftArm", "attachment": "leftArm" },
+    { "name": "rightArm", "bone": "rightArm", "attachment": "rightArm" },
+    { "name": "leftLeg", "bone": "leftLeg", "attachment": "leftLeg" },
+    { "name": "rightLeg", "bone": "rightLeg", "attachment": "rightLeg" }
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "attachments": {
+        "body": {
+          "body": { "type": "region", "x": 0, "y": 0, "width": 120, "height": 120 }
+        },
+        "head": {
+          "head": { "type": "region", "x": 0, "y": 0, "width": 100, "height": 100 }
+        },
+        "leftArm": {
+          "leftArm": { "type": "region", "x": 30, "y": 0, "width": 60, "height": 30 }
+        },
+        "rightArm": {
+          "rightArm": { "type": "region", "x": 30, "y": 0, "width": 60, "height": 30 }
+        },
+        "leftLeg": {
+          "leftLeg": { "type": "region", "x": 35, "y": 0, "width": 70, "height": 35 }
+        },
+        "rightLeg": {
+          "rightLeg": { "type": "region", "x": 35, "y": 0, "width": 70, "height": 35 }
+        }
+      }
+    }
+  ],
+  "animations": {
+    "idle": {
+      "bones": {
+        "body": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.5, "angle": 5 },
+            { "time": 1, "angle": 0 },
+            { "time": 1.5, "angle": -5 },
+            { "time": 2, "angle": 0 }
+          ],
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 1, "x": 1.05, "y": 0.95 },
+            { "time": 2, "x": 1, "y": 1 }
+          ]
+        },
+        "head": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.7, "angle": 10 },
+            { "time": 1.4, "angle": -10 },
+            { "time": 2, "angle": 0 }
+          ]
+        }
+      }
+    },
+    "hurt": {
+      "bones": {
+        "body": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.1, "angle": -15 },
+            { "time": 0.2, "angle": 15 },
+            { "time": 0.3, "angle": 0 }
+          ]
+        },
+        "head": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.1, "angle": -20 },
+            { "time": 0.2, "angle": 0 }
+          ]
+        }
+      },
+      "slots": {
+        "body": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 0.1, "color": "ff0000ff" },
+            { "time": 0.2, "color": "ffffffff" }
+          ]
+        }
+      }
+    },
+    "death": {
+      "bones": {
+        "root": {
+          "rotate": [
+            { "time": 0, "angle": 0 },
+            { "time": 0.5, "angle": 90 },
+            { "time": 1, "angle": 180 }
+          ],
+          "scale": [
+            { "time": 0, "x": 1, "y": 1 },
+            { "time": 1, "x": 0.5, "y": 0.5 }
+          ]
+        }
+      },
+      "slots": {
+        "body": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        },
+        "head": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        },
+        "leftArm": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        },
+        "rightArm": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        },
+        "leftLeg": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        },
+        "rightLeg": {
+          "color": [
+            { "time": 0, "color": "ffffffff" },
+            { "time": 1, "color": "ffffff00" }
+          ]
+        }
+      }
+    }
+  }
+}
+
