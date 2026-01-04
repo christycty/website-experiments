@@ -14,14 +14,31 @@ An interactive website simulating the traditional Japanese omikuji (fortune draw
 
 ## How to Use
 
-1. **Shake the Box**: Click and drag on the omikuji box to shake it
+### Desktop
+1. **Shake the Box**: Click and drag on the omikuji box to shake it (or press Enter/Space)
 2. **Watch the Stick Emerge**: After enough shaking, a fortune stick will slide out
-3. **Unfold Your Fortune**: Click to unfold the paper and reveal your fortune
-4. **Share Your Fortune**: Use the share buttons to:
-   - Download your fortune as an image
-   - Share on Instagram, WhatsApp, or X (Twitter)
-   - Copy a link to share with friends
+3. **Unfold Your Fortune**: Click on the paper to unfold and reveal your fortune
+4. **Share Your Fortune**: Use the share buttons below
 5. **Draw Again**: Click the button to draw another fortune
+
+### Mobile
+1. **Shake the Box**: Touch and drag on the omikuji box to shake it
+2. **Watch the Stick Emerge**: After enough shaking, a fortune stick will slide out
+3. **Unfold Your Fortune**: Tap on the paper to unfold and reveal your fortune
+4. **Share Your Fortune**: Tap any share button (icons only on mobile)
+5. **Draw Again**: Tap the button to draw another fortune
+
+## Share Options
+
+After revealing your fortune, you can share it in multiple ways:
+
+- **📥 Download**: Creates a high-quality PNG image of your fortune (2x resolution)
+- **📸 Instagram**: Downloads the image with instructions to post on Instagram
+- **💬 WhatsApp**: Opens WhatsApp with your fortune pre-formatted (includes all categories)
+- **🐦 X (Twitter)**: Opens Twitter with a pre-written tweet about your fortune
+- **🔗 Copy Link**: Copies the website URL to your clipboard for easy sharing
+
+All sharing is done client-side with no data sent to servers. You control what gets shared.
 
 ## Fortune Levels
 
@@ -41,6 +58,26 @@ Each fortune includes guidance for:
 - 学問 (Studies)
 - 旅行 (Travel)
 
+## Technical Details
+
+### Technologies Used
+- **Three.js** (r128) - 3D graphics and animations
+- **html2canvas** (1.4.1) - Fortune image generation for sharing
+- **Google Fonts** - Noto Serif JP and Crimson Text for authentic typography
+- **Vanilla JavaScript** - No build tools or npm required
+- **CSS3** - Modern animations, gradients, and responsive design
+
+### Browser Support
+- **Desktop**: Chrome/Edge, Firefox, Safari (latest versions)
+- **Mobile**: iOS Safari 14+, Chrome Android (latest)
+- **Features**: WebGL, Canvas API, Clipboard API (with fallbacks)
+
+### Responsive Design
+- **Desktop (>768px)**: Full experience with text labels on buttons
+- **Tablet (768px)**: Optimized layout with adjusted sizing
+- **Mobile (<768px)**: Icon-only buttons, touch-optimized interactions
+- **Small Mobile (<480px)**: Compact layout for smaller screens
+
 ## Deployment to GitHub Pages
 
 1. Create a new repository on GitHub
@@ -49,20 +86,17 @@ Each fortune includes guidance for:
 4. Select the branch and folder containing `index.html`
 5. Your site will be live at `https://[username].github.io/[repository-name]/`
 
-## Technologies Used
+## Troubleshooting
 
-- **Three.js** (r128) - 3D graphics and animations
-- **html2canvas** (1.4.1) - Fortune image generation
-- **Google Fonts** - Noto Serif JP and Crimson Text
-- **Vanilla JavaScript** - No frameworks required
-- **CSS3** - Modern animations and responsive design
+### Mobile Issues
+- **Can't unfold paper**: Make sure to tap directly on the paper (not dragging)
+- **Shaking not working**: Try using a single finger with clear drag gestures
+- **Share buttons not working**: Allow pop-ups and clipboard access in browser settings
 
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Android)
+### Desktop Issues
+- **3D box not showing**: Check if WebGL is enabled in your browser
+- **Download not working**: Check browser download permissions
+- **Copy link fails**: Try the fallback method or use a modern browser
 
 ## File Structure
 
