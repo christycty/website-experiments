@@ -1,5 +1,7 @@
 # おみくじ (Omikuji) - Interactive Fortune Drawing
 
+this is an introduction
+
 An interactive website simulating the traditional Japanese omikuji (fortune drawing) experience found at shrines. Draw your fortune with beautiful 3D animations and traditional aesthetics.
 
 ## Features
