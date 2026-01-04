@@ -1,16 +1,19 @@
 // js/systems/CombatSystem.js
 import { DamageNumber } from '../entities/DamageNumber.js';
 import { SoundGenerator } from '../utils/soundGenerator.js';
+import { Firework } from '../entities/Firework.js';
 
 export class CombatSystem {
-  constructor(yearBeast, store, app) {
+  constructor(yearBeast, store, app, shooter) {
     this.yearBeast = yearBeast;
     this.store = store;
     this.app = app;
+    this.shooter = shooter;
     this.DAMAGE_PER_FIRECRACKER = 10;
     this.CRIT_CHANCE = 0.15;
     this.CRIT_MULTIPLIER = 2;
     this.damageNumbers = [];
+    this.fireworks = [];
     
     // Initialize audio
     this.sounds = {};
@@ -45,30 +48,26 @@ export class CombatSystem {
     }
   }
 
-  onBeastTapped(event) {
+  onShoot() {
     // Check if player has firecrackers
     if (!this.store.consumeFirecracker(1)) {
       this.showMessage('爆竹不足！完成任務獲取更多爆竹');
       return;
     }
 
-    // Calculate damage
-    const { damage, isCrit } = this.calculateDamage();
-
-    // Apply damage
-    const defeated = this.store.damageYearBeast(damage);
-
-    // Visual feedback
-    this.showDamageNumber(damage, isCrit, event);
-    this.yearBeast.playHurt();
-
-    // Play sound effect (if available)
+    // Get shooter position and angle
+    const firePos = this.shooter.getFirePosition();
+    
+    // Create firework projectile
+    const firework = new Firework(this.app, firePos.x, firePos.y, firePos.angle);
+    this.app.stage.addChild(firework.sprite);
+    this.fireworks.push(firework);
+    
+    // Play shooter animation
+    this.shooter.playFireAnimation();
+    
+    // Play sound effect
     this.playSoundEffect('hit');
-
-    // Check if defeated
-    if (defeated) {
-      this.onBeastDefeated();
-    }
   }
 
   calculateDamage() {
@@ -195,7 +194,42 @@ export class CombatSystem {
   }
 
   update() {
-    // Update combat-related logic if needed
+    // Update all fireworks
+    for (let i = this.fireworks.length - 1; i >= 0; i--) {
+      const firework = this.fireworks[i];
+      firework.update();
+      
+      // Check collision with beast
+      if (firework.active && this.yearBeast.sprite && 
+          firework.checkCollision(this.yearBeast.sprite)) {
+        
+        // Calculate damage
+        const { damage, isCrit } = this.calculateDamage();
+        
+        // Apply damage
+        const defeated = this.store.damageYearBeast(damage);
+        
+        // Visual feedback
+        this.showDamageNumber(damage, isCrit, { 
+          global: { x: firework.sprite.x, y: firework.sprite.y } 
+        });
+        this.yearBeast.playHurt();
+        
+        // Explode firework
+        firework.explode();
+        
+        // Check if defeated
+        if (defeated) {
+          this.onBeastDefeated();
+        }
+      }
+      
+      // Remove inactive fireworks
+      if (!firework.active) {
+        firework.destroy();
+        this.fireworks.splice(i, 1);
+      }
+    }
   }
 }
 

@@ -18,9 +18,9 @@ export class YearBeast {
       this.isSpine = false;
     }
 
-    // Position in center
+    // Position at top of screen
     this.sprite.x = app.screen.width / 2;
-    this.sprite.y = app.screen.height / 2 + 100;
+    this.sprite.y = 150; // Top area
     
     // Store original position for reset
     this.originalX = this.sprite.x;
@@ -29,6 +29,12 @@ export class YearBeast {
     if (this.sprite.anchor) {
       this.sprite.anchor.set(0.5);
     }
+
+    // Movement properties
+    this.moveSpeed = 1; // Reduced from 2 to 1
+    this.moveDirection = 1; // 1 for right, -1 for left
+    this.minX = 100;
+    this.maxX = app.screen.width - 100;
 
     // Animation state
     this.currentState = 'idle';
@@ -76,38 +82,42 @@ export class YearBeast {
   }
 
   playHurt() {
+    if (!this.sprite) return; // Safety check
+    
     this.playAnimation('hurt', false);
     
-    // Store original position if not already stored
-    if (!this.originalX) {
-      this.originalX = this.sprite.x;
-    }
-    
-    // Shake effect using GSAP (from CDN)
-    gsap.to(this.sprite, {
-      x: `+=${10}`,
-      yoyo: true,
-      repeat: 5,
-      duration: 0.05,
-      ease: 'none',
-      onComplete: () => {
-        // Force reset to original position
-        this.sprite.x = this.originalX;
-        if (this.currentState !== 'death') {
-          this.playAnimation('idle', true);
-        }
-      }
-    });
-    
     // Flash red tint
-    if (!this.isSpine) {
+    if (!this.isSpine && this.sprite) {
       gsap.to(this.sprite, {
         tint: 0xff0000,
         duration: 0.1,
         yoyo: true,
         repeat: 1,
         onComplete: () => {
-          this.sprite.tint = 0xffffff;
+          if (this.sprite) {
+            this.sprite.tint = 0xffffff;
+          }
+        }
+      });
+    }
+    
+    // Scale pulse effect - with safety checks
+    if (this.sprite && this.sprite.scale) {
+      const originalScaleX = Math.abs(this.sprite.scale.x);
+      const originalScaleY = Math.abs(this.sprite.scale.y);
+      const flipDirection = this.sprite.scale.x < 0 ? -1 : 1;
+      
+      gsap.to(this.sprite.scale, {
+        x: originalScaleX * 1.2 * flipDirection,
+        y: originalScaleY * 1.2,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: 'power2.out',
+        onComplete: () => {
+          if (this.sprite && this.currentState !== 'death') {
+            this.playAnimation('idle', true);
+          }
         }
       });
     }
@@ -128,6 +138,7 @@ export class YearBeast {
   reset() {
     // Reset to initial state
     gsap.killTweensOf(this.sprite);
+    gsap.killTweensOf(this.sprite.scale);
     this.sprite.alpha = 1;
     this.sprite.scale.set(1);
     this.sprite.tint = 0xffffff;
@@ -140,12 +151,24 @@ export class YearBeast {
       this.sprite.y = this.originalY;
     }
     
+    // Reset movement
+    this.moveDirection = 1;
+    
     this.playAnimation('idle', true);
   }
 
   update() {
-    // Update animation if needed
-    // Spine animations update automatically
+    // Move left and right
+    this.sprite.x += this.moveSpeed * this.moveDirection;
+    
+    // Bounce at edges
+    if (this.sprite.x >= this.maxX) {
+      this.moveDirection = -1;
+      this.sprite.scale.x = Math.abs(this.sprite.scale.x) * -1; // Flip sprite
+    } else if (this.sprite.x <= this.minX) {
+      this.moveDirection = 1;
+      this.sprite.scale.x = Math.abs(this.sprite.scale.x); // Flip sprite back
+    }
   }
 }
 

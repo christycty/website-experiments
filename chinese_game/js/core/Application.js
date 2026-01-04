@@ -1,5 +1,6 @@
 // js/core/Application.js
 import { YearBeast } from '../entities/YearBeast.js';
+import { Shooter } from '../entities/Shooter.js';
 import { CombatSystem } from '../systems/CombatSystem.js';
 
 export class GameApplication {
@@ -22,6 +23,7 @@ export class GameApplication {
 
     // Game entities
     this.yearBeast = null;
+    this.shooter = null;
     this.combatSystem = null;
     this.background = null;
   }
@@ -81,18 +83,18 @@ export class GameApplication {
     this.yearBeast = new YearBeast(this.app);
     this.app.stage.addChild(this.yearBeast.sprite);
 
-    // Initialize combat system
-    this.combatSystem = new CombatSystem(this.yearBeast, this.store, this.app);
+    // Create Shooter
+    this.shooter = new Shooter(this.app);
+    this.app.stage.addChild(this.shooter.sprite);
 
-    // Add click handler (compatible with PixiJS v6 and v7+)
-    this.yearBeast.sprite.interactive = true;
-    this.yearBeast.sprite.buttonMode = true;
-    if (this.yearBeast.sprite.eventMode !== undefined) {
-      this.yearBeast.sprite.eventMode = 'static';
-    }
-    this.yearBeast.sprite.cursor = 'pointer';
-    this.yearBeast.sprite.on('pointerdown', (event) => {
-      this.combatSystem.onBeastTapped(event);
+    // Initialize combat system
+    this.combatSystem = new CombatSystem(this.yearBeast, this.store, this.app, this.shooter);
+
+    // Add click/tap handler for shooting (anywhere on screen)
+    this.app.stage.interactive = true;
+    this.app.stage.hitArea = new PIXI.Rectangle(0, 0, this.app.screen.width, this.app.screen.height);
+    this.app.stage.on('pointerdown', () => {
+      this.combatSystem.onShoot();
     });
 
     // Start game loop
@@ -105,6 +107,10 @@ export class GameApplication {
     // Update game entities
     if (this.yearBeast) {
       this.yearBeast.update();
+    }
+    
+    if (this.shooter) {
+      this.shooter.update();
     }
     
     if (this.combatSystem) {
