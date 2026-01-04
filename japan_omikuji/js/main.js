@@ -100,12 +100,20 @@ const OmikujiApp = {
             this.onPointerUp();
         }, { passive: false });
         
-        // Click to unfold
+        // Click to unfold (desktop)
         this.elements.canvasContainer.addEventListener('click', () => {
             if (this.currentState === this.states.READY_TO_UNFOLD) {
                 this.unfoldPaper();
             }
         });
+        
+        // Touch to unfold (mobile)
+        this.elements.canvasContainer.addEventListener('touchstart', (e) => {
+            if (this.currentState === this.states.READY_TO_UNFOLD) {
+                e.preventDefault();
+                this.unfoldPaper();
+            }
+        }, { passive: false });
         
         // Reset button
         this.elements.resetButton.addEventListener('click', () => this.reset());
